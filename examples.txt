@@ -1,0 +1,48 @@
+python3 respatial.py analyze report/Mahler/Mahler-7-2mvt.wav
+  k    ild_db   dev_deg   centroid_hz   act_frac
+  0     -2.22     +14.5        2512.7      0.127
+  1     -2.71     +17.6         838.8      0.113
+  2     -1.83     +12.0        1564.1      0.120
+  3     -1.81     +11.8         706.0      0.121
+  4     -1.53     +10.0        1876.2      0.136
+  5     -1.49      +9.8        1998.7      0.138
+  6     -1.63     +10.7        1914.9      0.124
+  7     -2.82     +18.3        1818.9      0.121
+
+clips + pans.txt in report/
+
+python3 respatial.py measure report/Mahler/Mahler-7-2mvt.wav
+segment 0-65.8403 s  sr=44100  RMS L 0.0418 / R 0.0433  peak 0.412
+active bins 34180 (amp > 5% of max)
+position d (deg from center): median   +5.7  mean   +5.4  p5  -58.4  p95  +65.7  range 124.1  p95|d|  70.1
+ILD (dB, L/R): median  -0.87  |ILD| p50  4.86  p95 15.12  p99 21.91
+position histogram (10 deg cells):
+   -90.. -80  ### 147
+   -80.. -70  ######## 486
+   -70.. -60  ############### 890
+   -60.. -50  ####################### 1361
+   -50.. -40  ################################ 1850
+   -40.. -30  ####################################### 2288
+   -30.. -20  ############################################## 2675
+   -20.. -10  ################################################ 2785
+   -10..  +0  ################################################## 2925
+    +0.. +10  ################################################## 2931
+   +10.. +20  ################################################ 2816
+   +20.. +30  ############################################## 2696
+   +30.. +40  ############################################### 2776
+   +40.. +50  ############################################ 2592
+   +50.. +60  ###################################### 2247
+   +60.. +70  ############################ 1625
+   +70.. +80  ############## 819
+   +80.. +90  ##### 271
+suggestion: 6 deg right bias -> remix --rotate -6 to recenter
+suggestion: width ~124 deg (p5..p95), p95|d| 70 -> --stage 140 keeps it, --stage 180 expands to full
+
+python3 respatial.py remix --rotate 6 report/Mahler/Mahler-7-2mvt.wav --t0 0 --t1 66 --out report/Mahler/Mahler-7-2mvt.rotate.6.wav
+rotate +6 deg: gamma=1.000, span 145.8 deg (p95|d|), blend 1, dist-gain +0.97 dB (center vs edge), wrote report/Mahler/Mahler-7-2mvt.rotate.6.wav
+
+python3 respatial.py remix --rotate 6 --stage 180 --blend 0.5 report/Mahler/Mahler-7-2mvt.wav --t0 0 --t1 66 --out report/Mahler/Mahler-7-2mvt.rotate.6.stage.180.blend.0.5.wav
+stage 180 deg: gamma=19.263, span 180.0 deg (p95|d|), blend 0.5, dist-gain +0.97 dB (center vs edge), wrote report/Mahler/Mahler-7-2mvt.rotate.6.stage.180.blend.0.5.wav
+
+python3 respatial.py remix --rotate 6 --stage 90 --blend 0.5 report/Mahler/Mahler-7-2mvt.wav --t0 0 --t1 66 --out report/Mahler/Mahler-7-2mvt.rotate.6.stage.90.blend.0.5.wav
+stage 90 deg: gamma=0.465, span 90.0 deg (p95|d|), blend 0.5, dist-gain +0.97 dB (center vs edge), wrote report/Mahler/Mahler-7-2mvt.rotate.6.stage.90.blend.0.5.wav
